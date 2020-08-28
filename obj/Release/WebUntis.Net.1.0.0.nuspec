@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>WebUntis.Net</id>
+    <version>1.0.0</version>
+    <authors>Yannik Höflich</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <description>An unofficial .NET API Wrapper for the Webuntis Api</description>
+    <repository type="git" url="https://github.com/yannikHoeflich/WebUntis.Net" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\bin\Release\netstandard2.0\WebUntis.Net.dll" target="lib\netstandard2.0\WebUntis.Net.dll" />
+    <file src="C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\LICENSE" target="LICENSE" />
+  </files>
+</package>

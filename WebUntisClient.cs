@@ -57,7 +57,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <returns>nothing</returns>
         public async Task LogoutAsync( ) {
-            _request<object>( "logout" , new Dictionary<string , object>( ) );
+            await _request<object>( "logout" , new Dictionary<string , object>( ) );
         }
 
         /// <summary>

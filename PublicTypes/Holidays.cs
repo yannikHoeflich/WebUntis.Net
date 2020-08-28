@@ -23,8 +23,8 @@ namespace WebUntis.Net {
         public DateTime EndDate { get; set; }
 
         public void Convert( ) {
-            StartDate = WebUntisClient.ConvertUntisToDate( StartDateUntisFormat );
-            EndDate = WebUntisClient.ConvertUntisToDate( EndDateUntisFormat );
+            StartDate = WebUntisClient.ConvertUntisToDate( StartDateUntis );
+            EndDate = WebUntisClient.ConvertUntisToDate( EndDateUntis );
         }
     }
 }

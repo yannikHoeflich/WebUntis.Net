@@ -1,5 +1,5 @@
 # WebUntis.Net
-[![NuGet](https://img.shields.io/nuget/vpre/Discord.Net.svg?maxAge=2592000?style=plastic)](https://www.nuget.org/packages/Discord.Net)
+[![NuGet](https://img.shields.io/nuget/vpre/Discord.Net.svg?maxAge=2592000?style=plastic)](https://www.nuget.org/packages/WebUntis.Net)
 
 An unofficial .NET API Wrapper for the Webuntis Api
 
@@ -8,7 +8,7 @@ Our [documentation](/documentation/documentation.md)
 ## Installation
 ### NuGet
 Our stable builds available from NuGet through the Discord.Net metapackage:
- - [WebUntis.Net]()
+ - [WebUntis.Net](https://www.nuget.org/packages/WebUntis.Net)
 
 ## Compiling
 In order to compile WebUntis.Net, you require the following:

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WebUntis.Net</id>
+        <version>1.0.0</version>
+        <title>WebUntis.Net</title>
+        <authors>Yannik Höflich</authors>
+        <owners />
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>An unofficial .NET API Wrapper for the Webuntis Api</description>
+        <license type="expression">MIT</license>
+        <repository type="git" url="https://github.com/yannikHoeflich/WebUntis.Net.git" branch="master" commit="97b1d4f46ab9da1cff318463e949a7020e2b96b5" />
+    </metadata>
+    <files>
+        <file src="LICENSE" target="" />
+  </files>
+</package>
