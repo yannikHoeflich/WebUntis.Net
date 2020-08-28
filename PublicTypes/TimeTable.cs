@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
 namespace WebUntis.Net {
     public class TimeTable : ICollection<TimeTablePart>, ICloneable {
         private protected List<TimeTablePart> Parts = new List<TimeTablePart>();
@@ -45,37 +43,5 @@ namespace WebUntis.Net {
 
         public bool Remove( TimeTablePart item ) =>
             Parts.Remove( item );
-    }
-    public class TimeTablePart : ICloneable {
-        [JsonProperty( "id" )]
-        public int Id { get; set; }
-
-        [JsonProperty( "date" )]
-        public int Date { get; set; }
-
-        [JsonProperty( "startTime" )]
-        public int StartTime { get; set; }
-
-        [JsonProperty( "endTime" )]
-        public int EndTime { get; set; }
-
-        [JsonProperty( "kl" )]
-        public List<UntisClass> Class { get; set; }
-
-        [JsonProperty( "su" )]
-        public List<Subject> Subject { get; set; }
-
-        [JsonProperty( "ro" )]
-        public List<Room> Room { get; set; }
-
-        [JsonProperty( "lsnumber" )]
-        public int Lsnumber { get; set; }
-
-        [JsonProperty( "activityType" )]
-        public string ActivityType { get; set; }
-
-        public object Clone( ) {
-            return this.MemberwiseClone( );
-        }
     }
 }

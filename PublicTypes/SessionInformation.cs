@@ -24,7 +24,7 @@ namespace WebUntis.Net {
         public int PersonId { get; set; }
 
         [JsonProperty( "klasseId" )]
-        public int KlasseId { get; set; }
+        public int ClassId { get; set; }
     }
 
 }

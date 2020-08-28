@@ -23,7 +23,7 @@ namespace WebUntis.Net {
         public bool Debug = false;
 
 
-        private SessionInformation SessionInformation;
+        public SessionInformation SessionInformation { get; private set; }
 
         /// <summary>
         /// default constructor
@@ -64,7 +64,7 @@ namespace WebUntis.Net {
         /// login
         /// </summary>
         /// <returns>nothing</returns>
-        public async Task Login( ) {
+        public async Task LoginAsync( ) {
             RequestPostData data = new RequestPostData(){
                 id = this.Id,
                 method = "authenticate",
@@ -88,35 +88,14 @@ namespace WebUntis.Net {
         }
 
         /// <summary>
-        /// get your own Timetable for today
-        /// </summary>
-        /// <param name="validateSession">checks if session stays valid</param>
-        /// <returns></returns>
-        public async Task<TimeTable> GetOwnTimetableForToday( bool validateSession = true ) {
-            _checkAnonymous( );
-            return await _timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , DateTime.Now , DateTime.Now , validateSession );
-        }
-
-        /// <summary>
-        /// Get Timetable of other person of today
-        /// </summary>
-        /// <param name="id">person id</param>
-        /// <param name="type">person type</param>
-        /// <param name="validateSession">checks if session stays valid</param>
-        /// <returns>the Timatable</returns>
-        public async Task<TimeTable> GetTimetableForToday( int id , int type , bool validateSession = true ) {
-            return await this._timetableRequest( id , type , DateTime.Now , DateTime.Now , validateSession );
-        }
-
-        /// <summary>
         /// Get yout timetable for another name
         /// </summary>
         /// <param name="date">the date wich you want to have the timetable</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the Timetable</returns>
-        public async Task<TimeTable> GetOwnTimetableFor( DateTime date , bool validateSession = true ) {
+        public async Task<TimeTable> GetOwnTimetableForDateAsync( DateTime date , bool validateSession = true ) {
             this._checkAnonymous( );
-            return await this._timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , date , date , validateSession );
+            return await _timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , date , date , validateSession );
         }
 
         /// <summary>
@@ -127,8 +106,8 @@ namespace WebUntis.Net {
         /// <param name="type">the person type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the Timetable</returns>
-        public async Task<TimeTable> GetTimetableFor( DateTime date , int id , int type , bool validateSession = true ) {
-            return await this._timetableRequest( id , type , date , date , validateSession );
+        public async Task<TimeTable> GetTimetableForDateAsync( DateTime date , int id , int type , bool validateSession = true ) {
+            return await _timetableRequest( id , type , date , date , validateSession );
         }
 
         /// <summary>
@@ -138,9 +117,9 @@ namespace WebUntis.Net {
         /// <param name="rangeEnd">Date of the last timetable</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an timetable that contains all subjects in the range of dates</returns>
-        public async Task<TimeTable> GetOwnTimetableForRange( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
+        public async Task<TimeTable> GetOwnTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
             this._checkAnonymous( );
-            return await this._timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , rangeStart , rangeEnd , validateSession );
+            return await _timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , rangeStart , rangeEnd , validateSession );
         }
 
         /// <summary>
@@ -152,18 +131,8 @@ namespace WebUntis.Net {
         /// <param name="type">the person type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an timetable that contains all subjects in the range of dates</returns>
-        public async Task<TimeTable> GetTimetableForRange( DateTime rangeStart , DateTime rangeEnd , int id , int type , bool validateSession = true ) {
-            return await this._timetableRequest( id , type , rangeStart , rangeEnd , validateSession );
-        }
-
-        /// <summary>
-        /// gets the timetable of the own class for totay
-        /// </summary>
-        /// <param name="validateSession">checks if session stays valid</param>
-        /// <returns>the timetable</returns>
-        public async Task<TimeTable> getOwnClassTimetableForToday( bool validateSession = true ) {
-            this._checkAnonymous( );
-            return await this._timetableRequest( SessionInformation.KlasseId , 1 , DateTime.Now , DateTime.Now , validateSession );
+        public async Task<TimeTable> GetTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , int id , int type , bool validateSession = true ) {
+            return await _timetableRequest( id , type , rangeStart , rangeEnd , validateSession );
         }
 
         /// <summary>
@@ -172,9 +141,15 @@ namespace WebUntis.Net {
         /// <param name="date">the date wich you want to have the timetable</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the timetable</returns>
-        public async Task<TimeTable> getOwnClassTimetableFor( DateTime date , bool validateSession = true ) {
+        public async Task<TimeTable> getOwnClassTimetableForDateAsync( DateTime date , bool validateSession = true ) {
             this._checkAnonymous( );
-            return await this._timetableRequest( SessionInformation.KlasseId , 1 , date , date , validateSession );
+            TimeTable tt = await _timetableRequest( SessionInformation.ClassId , 1 , date , date , validateSession );
+
+            foreach( TimeTablePart ttp in tt ) {
+                ttp.Convert( );
+            }
+
+            return tt;
         }
 
         /// <summary>
@@ -184,9 +159,9 @@ namespace WebUntis.Net {
         /// <param name="rangeEnd">Date of the last timetable</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns></returns>
-        public async Task<TimeTable> getOwnClassTimetableForRange( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
+        public async Task<TimeTable> getOwnClassTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
             this._checkAnonymous( );
-            return await this._timetableRequest( SessionInformation.KlasseId , 1 , rangeStart , rangeEnd , validateSession );
+            return await _timetableRequest( SessionInformation.ClassId , 1 , rangeStart , rangeEnd , validateSession );
         }
 
         /// <summary>
@@ -195,12 +170,12 @@ namespace WebUntis.Net {
         /// <param name="rangeStart">the start for the days</param>
         /// <param name="rangeEnd">the end date of the range of days</param>
         /// <returns></returns>
-        public async Task<List<HomeWork>> GetHomeWorksFor( DateTime rangeStart , DateTime rangeEnd ) {
+        public async Task<List<HomeWork>> GetHomeWorksForDateAsync( DateTime rangeStart , DateTime rangeEnd ) {
             string url = "/WebUntis/api/homeworks/lessons?startDate=" + ConvertDateToUntis(rangeStart) + "&endDate=" + ConvertDateToUntis(rangeEnd);
             var response = await client.GetAsync( url );
             string str = await response.Content.ReadAsStringAsync( );
             var list = JsonConvert.DeserializeObject<HomeWorkResponse>( str ).Data.Homeworks;
-            list.ForEach( x => x.Parse( ) );
+            list.ForEach( x => x.Convert( ) );
             return list;
         }
 
@@ -210,7 +185,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of rooms</returns>
-        public async Task<List<Room>> GetRooms( bool validateSession = true ) {
+        public async Task<List<Room>> GetRoomsAsync( bool validateSession = true ) {
             return (await _request<List<Room>>( "getRooms" , new Dictionary<string , object>( ) , validateSession )).result;
         }
 
@@ -219,7 +194,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of classes</returns>
-        public async Task<List<UntisClass>> GetClasses( bool validateSession = true ) {
+        public async Task<List<UntisClass>> GetClassesAsync( bool validateSession = true ) {
             return (await _request<List<UntisClass>>( "getKlassen" , new Dictionary<string , object>( ) , validateSession )).result;
         }
 
@@ -228,7 +203,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of holidays</returns>
-        public async Task<List<Holidays>> GetHolidays( bool validateSession = true ) {
+        public async Task<List<Holidays>> GetHolidaysAsync( bool validateSession = true ) {
             List<Holidays> holidayList = (await _request<List<Holidays> >( "getHolidays" , new Dictionary<string , object>( ) , validateSession )).result;
             holidayList.ForEach( x => x.Convert( ) );
             return holidayList;
@@ -239,7 +214,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of teachers</returns>
-        public async Task<List<Teacher>> GetTeachers( bool validateSession = true ) {
+        public async Task<List<Teacher>> GetTeachersAsync( bool validateSession = true ) {
             return (await _request<List<Teacher>>( "getTeachers" , new Dictionary<string , object>( ) , validateSession )).result;
         }
 
@@ -248,7 +223,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of students</returns>
-        public async Task<List<Student>> GetStudents( bool validateSession = true ) {
+        public async Task<List<Student>> GetStudentsAsync( bool validateSession = true ) {
             return (await _request<List<Student>>( "getStudents" , new Dictionary<string , object>( ) , validateSession )).result;
         }
 
@@ -257,7 +232,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of subjects</returns>
-        public async Task<List<Subject>> GetSubjects( bool validateSession = true ) {
+        public async Task<List<Subject>> GetSubjectsAsync( bool validateSession = true ) {
             return (await _request<List<Subject>>( "getSubjects" , new Dictionary<string , object>( ) , validateSession )).result;
         }
 
@@ -266,11 +241,11 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an array of timegrid days</returns>
-        public async Task<List<TimeGridDay>> GetTimegrid( bool validateSession = true ) {
+        public async Task<List<TimeGridDay>> GetTimegridAsync( bool validateSession = true ) {
             List<TimeGridDay> days = (await _request<List<TimeGridDay>>( "getTimegridUnits" , new Dictionary<string , object>( ) , validateSession )).result;
             foreach( var day in days ) {
                 foreach( var unit in day.TimeUnits ) {
-                    unit.Parse( );
+                    unit.Convert( );
                 }
             }
             return days;
@@ -281,7 +256,7 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the school year object</returns>
-        public async Task<SchoolYear> GetCurrentSchoolyear( bool validateSession = true ) {
+        public async Task<SchoolYear> GetCurrentSchoolyearAsync( bool validateSession = true ) {
             return (await _request<SchoolYear>( "getCurrentSchoolyear" , new Dictionary<string , object>( ) , validateSession )).result;
         }
         #endregion
@@ -296,9 +271,9 @@ namespace WebUntis.Net {
             OptionRequestData options = new OptionRequestData();
             options.id = DateTimeOffset.UtcNow.ToUnixTimeSeconds( );
             options.additionalOptions = new DateAdditionalOptions( StartDate , EndDate );
-            options.element = new User( ) {
-                id = personId ,
-                type = personType
+            options.element = new UntisUser( ) {
+                Id = personId ,
+                Type = personType
             };
             options.showLsText = true;
             options.showStudentgroup = true;
@@ -350,9 +325,9 @@ namespace WebUntis.Net {
         #endregion
 
         #region static methods
-        public static string ConvertDateToUntis( DateTime date ) {
-            return
-                (date.Year.ToString( ) +
+        public static int ConvertDateToUntis( DateTime date ) {
+            return int.Parse(
+                date.Year.ToString( ) +
                 (date.Month < 10 ? "0" + date.Month.ToString( ) : date.Month.ToString( )) +
                 (date.Day < 10 ? "0" + date.Day.ToString( ) : date.Day.ToString( ))
             );
@@ -367,14 +342,14 @@ namespace WebUntis.Net {
         }
 
 
-        public static string ConvertTimeToUntis( DateTime date ) {
-            return (
-                date.Hour.ToString( ) +
-                (date.Minute < 10 ? "0" + date.Minute.ToString( ) : date.Minute.ToString( ))
+        public static int ConvertTimeToUntis( DateTime time ) {
+            return int.Parse(
+                time.Hour.ToString( ) +
+                (time.Minute < 10 ? "0" + time.Minute.ToString( ) : time.Minute.ToString( ))
             );
         }
-        public static DateTime ConvertUntisToTime( int UntisDate ) {
-            string str = UntisDate.ToString();
+        public static DateTime ConvertUntisToTime( int UntisTime ) {
+            string str = UntisTime.ToString();
             string hour;
             string minute;
 

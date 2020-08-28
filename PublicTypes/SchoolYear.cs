@@ -20,7 +20,7 @@ namespace WebUntis.Net {
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
-        public void Parse( ) {
+        public void Convert( ) {
             StartDate = WebUntisClient.ConvertUntisToDate( StartDateUntis );
             EndDate = WebUntisClient.ConvertUntisToDate( EndDateUntis );
         }

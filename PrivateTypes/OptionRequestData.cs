@@ -1,7 +1,7 @@
 ﻿namespace WebUntis.Net {
     public class OptionRequestData {
         public long id { get; set; }
-        public User element { get; set; }
+        public UntisUser element { get; set; }
         public object additionalOptions { get; set; }
         public bool showLsText { get; set; }
         public bool showStudentgroup { get; set; }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
@@ -15,19 +14,13 @@ namespace WebUntis.Net {
         public string LongName { get; set; }
 
         [JsonProperty( "startDate" )]
-        public int StartDateUntisFormat { get; set; }
+        public int StartDateUntis { get; set; }
 
         [JsonProperty( "endDate" )]
-        public int EndDateUntisFormat { get; set; }
+        public int EndDateUntis { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-
-        [OnSerialized]
-        internal void Convert( StreamingContext context ) {
-            StartDate = WebUntisClient.ConvertUntisToDate( StartDateUntisFormat );
-            EndDate = WebUntisClient.ConvertUntisToDate( EndDateUntisFormat );
-        }
 
         public void Convert( ) {
             StartDate = WebUntisClient.ConvertUntisToDate( StartDateUntisFormat );

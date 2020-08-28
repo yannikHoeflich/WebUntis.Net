@@ -32,7 +32,7 @@ namespace WebUntis.Net {
         public DateTime Date { get; private set; }
         public DateTime DueDate { get; private set; }
 
-        public void Parse( ) {
+        public void Convert( ) {
             Date = WebUntisClient.ConvertUntisToDate( DateUntis );
             DueDate = WebUntisClient.ConvertUntisToDate( DueDateUntis );
         }

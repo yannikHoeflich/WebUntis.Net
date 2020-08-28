@@ -13,7 +13,7 @@ namespace WebUntis.Net {
         public string Name { get; set; }
 
         [JsonProperty( "foreName" )]
-        public string Longname { get; set; }
+        public string ForeName { get; set; }
 
         [JsonProperty( "longName" )]
         public string LongName { get; set; }
