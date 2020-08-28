@@ -1,6 +1,3 @@
-# WebUntis.Net
-[![NuGet](https://img.shields.io/nuget/vpre/Discord.Net.svg?maxAge=2592000?style=plastic)](https://www.nuget.org/packages/WebUntis.Net)
-
 An unofficial .NET API Wrapper for the Webuntis Api
 
 Our [documentation](/documentation/documentation.md)
