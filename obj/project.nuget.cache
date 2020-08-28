@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "PxIAwaZT9II12Ry9Fz4GlINKb9tJDJ8aGv2oHrwK61KOuimQKVCIOQQhTRHrYdGi5YhwRy4WuwmYfDX5uCIORQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ygidy\\source\\repos\\WebUntis.Net\\WebUntis.Net\\WebUntis.Net.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ygidy\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\ygidy\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\ygidy\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
