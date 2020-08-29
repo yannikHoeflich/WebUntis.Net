@@ -268,24 +268,26 @@ namespace WebUntis.Net {
         }
 
         private async Task<TimeTable> _timetableRequest( int personId , int personType , DateTime StartDate , DateTime EndDate , bool validateSession = true ) {
-            OptionRequestData options = new OptionRequestData();
-            options.id = DateTimeOffset.UtcNow.ToUnixTimeSeconds( );
-            options.additionalOptions = new DateAdditionalOptions( StartDate , EndDate );
-            options.element = new UntisUser( ) {
-                Id = personId ,
-                Type = personType
-            };
-            options.showLsText = true;
-            options.showStudentgroup = true;
-            options.showLsNumber = true;
-            options.showSubstText = true;
-            options.showInfo = true;
-            options.showBooking = true;
+            OptionRequestData options = new OptionRequestData {
+                id = DateTimeOffset.UtcNow.ToUnixTimeSeconds( ) ,
+                startDate = ConvertDateToUntis(StartDate),
+                endDate = ConvertDateToUntis(EndDate),
+                element = new UntisUser( ) {
+                    Id = personId ,
+                    Type = personType
+                } ,
+                showLsText = true ,
+                showStudentgroup = true ,
+                showLsNumber = true ,
+                showSubstText = true ,
+                showInfo = true ,
+                showBooking = true ,
 
-            options.klasseFields = new string[] { "id" , "name" , "longname" , "externalkey" };
-            options.roomFields = new string[] { "id" , "name" , "longname" , "externalkey" };
-            options.subjectFields = new string[] { "id" , "name" , "longname" , "externalkey" };
-            options.teacherFields = new string[] { "id" , "name" , "longname" , "externalkey" };
+                klasseFields = new string[] { "id" , "name" , "longname" , "externalkey" } ,
+                roomFields = new string[] { "id" , "name" , "longname" , "externalkey" } ,
+                subjectFields = new string[] { "id" , "name" , "longname" , "externalkey" } ,
+                teacherFields = new string[] { "id" , "name" , "longname" , "externalkey" }
+            };
 
             return (await _request<TimeTable>( "getTimetable" , new Dictionary<string , object>( ) { { "options" , options } } , validateSession )).result;
         }
@@ -302,18 +304,19 @@ namespace WebUntis.Net {
             RequestPostData data = new RequestPostData(){
                 id = this.Id,
                 method = method,
-                jsonrpc = "2.0"
+                jsonrpc = "2.0",
+                @params = parameters
             };
 
-            data.@params = parameters;
-
+            if( Debug )
+                Console.WriteLine( "request:" + JsonConvert.SerializeObject( data ) );
             HttpContent content = new StringContent( JsonConvert.SerializeObject(data) , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync( url , content );
 
             response.EnsureSuccessStatusCode( );
 
             if( Debug )
-                Console.WriteLine( await response.Content.ReadAsStringAsync( ) );
+                Console.WriteLine( "answer:" + await response.Content.ReadAsStringAsync( ) + "\n" );
 
             return JsonConvert.DeserializeObject<Answer<T>>( await response.Content.ReadAsStringAsync( ) );
         }

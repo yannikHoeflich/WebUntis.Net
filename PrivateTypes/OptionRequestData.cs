@@ -2,6 +2,8 @@
     public class OptionRequestData {
         public long id { get; set; }
         public UntisUser element { get; set; }
+        public int startDate { get; set; }
+        public int endDate { get; set; }
         public object additionalOptions { get; set; }
         public bool showLsText { get; set; }
         public bool showStudentgroup { get; set; }
