@@ -28,6 +28,8 @@ namespace WebUntis.Net {
         [JsonProperty( "attachments" )]
         public string[] Attachments { get; set; }
 
+        public LessonHomeWork Subject { get; set; }
+
 
         public DateTime Date { get; private set; }
         public DateTime DueDate { get; private set; }

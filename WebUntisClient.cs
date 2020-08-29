@@ -172,10 +172,22 @@ namespace WebUntis.Net {
         /// <returns></returns>
         public async Task<List<HomeWork>> GetHomeWorksForDateAsync( DateTime rangeStart , DateTime rangeEnd ) {
             string url = "/WebUntis/api/homeworks/lessons?startDate=" + ConvertDateToUntis(rangeStart) + "&endDate=" + ConvertDateToUntis(rangeEnd);
+
+            if( Debug )
+                Console.WriteLine( "request: " + url );
+
             var response = await client.GetAsync( url );
             string str = await response.Content.ReadAsStringAsync( );
-            var list = JsonConvert.DeserializeObject<HomeWorkResponse>( str ).Data.Homeworks;
-            list.ForEach( x => x.Convert( ) );
+
+            if( Debug )
+                Console.WriteLine( "answer: " + str + "\n" );
+
+            DataHomeWorkResponse data = JsonConvert.DeserializeObject<HomeWorkResponse>( str ).Data;
+            var list = data.Homeworks;
+            list.ForEach( x => {
+                x.Convert( );
+                x.Subject = data.Lessons.Find( y => x.LessonId == y.Id );
+            } );
             return list;
         }
 

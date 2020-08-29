@@ -27,17 +27,6 @@ namespace WebUntis.Net {
         public string Name { get; set; }
     }
 
-    internal class LessonHomeWorkResponse {
-        [JsonProperty( "id" )]
-        public int Id { get; set; }
-
-        [JsonProperty( "subject" )]
-        public string Subject { get; set; }
-
-        [JsonProperty( "lessonType" )]
-        public string LessonType { get; set; }
-    }
-
     internal class DataHomeWorkResponse {
         [JsonProperty( "records" )]
         public List<RecordHomeWorkResponse> Records { get; set; }
@@ -49,7 +38,7 @@ namespace WebUntis.Net {
         public List<TeacherHomeWorkResponse> Teachers { get; set; }
 
         [JsonProperty( "lessons" )]
-        public List<LessonHomeWorkResponse> Lessons { get; set; }
+        public List<LessonHomeWork> Lessons { get; set; }
     }
 
 
