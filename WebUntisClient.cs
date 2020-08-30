@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ namespace WebUntis.Net {
 
 
         public SessionInformation SessionInformation { get; private set; }
+        public bool Disconnected = false;
 
         /// <summary>
         /// default constructor
@@ -60,6 +62,7 @@ namespace WebUntis.Net {
         /// <returns>nothing</returns>
         public async Task LogoutAsync( ) {
             await _request<object>( "logout" , new Dictionary<string , object>( ) );
+            Disconnected = true;
         }
 
         /// <summary>
@@ -171,8 +174,11 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="rangeStart">the start for the days</param>
         /// <param name="rangeEnd">the end date of the range of days</param>
+        /// <param name="validateSession">checks if session stays valid</param>
         /// <returns></returns>
-        public async Task<List<HomeWork>> GetHomeWorksForDateAsync( DateTime rangeStart , DateTime rangeEnd ) {
+        public async Task<List<HomeWork>> GetHomeWorksForDateAsync( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
+            if( validateSession )
+                await _validateSeassion( );
             string url = "/WebUntis/api/homeworks/lessons?startDate=" + ConvertDateToUntis(rangeStart) + "&endDate=" + ConvertDateToUntis(rangeEnd);
 
             if( Debug )
@@ -273,6 +279,15 @@ namespace WebUntis.Net {
         public async Task<SchoolYear> GetCurrentSchoolyearAsync( bool validateSession = true ) {
             return (await _request<SchoolYear>( "getCurrentSchoolyear" , new Dictionary<string , object>( ) , validateSession )).result;
         }
+
+        public void StartKeepAlive( ) {
+            new Thread( async ( ) => {
+                while( !Disconnected ) {
+                    await _validateSeassion( );
+                    Thread.Sleep( TimeSpan.FromMinutes( 1 ) );
+                }
+            } ).Start( );
+        }
         #endregion
 
         #region private methods
@@ -308,13 +323,12 @@ namespace WebUntis.Net {
 
 
         private async Task<Answer<T>> _request<T>( string method , Dictionary<string , object> parameters , bool validateSession = true , string url = null ) {
-            if( validateSession ) {
-                if( !(await _validateSeassion( )) ) {
-                    throw new InvalidOperationException( "Current Session is not valid" );
-                }
-            }
+            if( validateSession )
+                await _validateSeassion( );
+
             if( url == null )
                 url = "WebUntis/jsonrpc.do?school=" + School;
+
             RequestPostData data = new RequestPostData(){
                 id = this.Id,
                 method = method,
@@ -336,8 +350,11 @@ namespace WebUntis.Net {
         }
 
 
-        private async Task<bool> _validateSeassion( ) {
-            return long.TryParse( (await _request<object>( "getLatestImportTime" , new Dictionary<string , object>( ) , false )).result.ToString( ) , out long t );
+        private async Task _validateSeassion( ) {
+            if( Disconnected || !long.TryParse( (await _request<object>( "getLatestImportTime" , new Dictionary<string , object>( ) , false )).result.ToString( ) , out long t ) ) {
+                Disconnected = true;
+                throw new DisconnectedException( );
+            }
         }
         #endregion
 
