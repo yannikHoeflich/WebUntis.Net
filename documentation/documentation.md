@@ -17,6 +17,29 @@ await client.LoginAsync();
 var HomeWorks = await client.GetHomeWorksForDateAsync( DateTime.Now , DateTime.Now + TimeSpan.FromDays(7) );
 ```
 
+### get all new homeworks and update every hour
+```cs
+readonly List<int> Existing = new List<int>();
+
+WebUntisClient client = new WebUntisClient("school name(from url)", "username", "password", "raw url (letters.webuntis.com)");
+
+await client.LoginAsync();
+client.StartKeepAlive( );
+
+while( true ) {
+    List<HomeWork> homeworks = await UntisClient.GetHomeWorksForDateAsync( DateTime.Now , DateTime.Now + TimeSpan.FromDays( 30 ) 
+    foreach( HomeWork hw in homeworks ) {
+        if( !Existing.Contains( hw.Id ) ) {
+            Existing.Add( hw.Id );
+
+            //code for new homeworks
+        }
+    }
+    Thread.Sleep(TimeSpan.FromHours(1));
+}
+
+```
+
 # non static Methods
 
 ## LoginAsync
@@ -45,6 +68,20 @@ To logout the client
 **example**
 ```cs 
 await client.LogoutAsync();
+```
+
+## StartKeepAlive
+Start a **new Thread** which makes a request every minute to keep the session alive
+
+**takes**
+- nothing
+
+**returns**
+- nothing
+
+**example**
+```cs 
+client.StartKeepAlive( );
 ```
 
 ## GetOwnTimetableForDateAsync
