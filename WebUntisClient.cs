@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using WebUntis.Net.Exceptions;
+
 namespace WebUntis.Net {
     public class WebUntisClient {
         private readonly string School;

@@ -9,8 +9,8 @@
     <Authors>Yannik Höflich</Authors>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/yannikHoeflich/WebUntis.Net</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.0.2</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

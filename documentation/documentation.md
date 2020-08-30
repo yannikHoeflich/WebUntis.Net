@@ -55,7 +55,7 @@ Gets own timetable for a day
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -72,7 +72,7 @@ Gets the timetable of another person for a day
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -88,7 +88,7 @@ Gets the own timetable for a range of days
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -106,7 +106,7 @@ Gets the timetable of another person for a range of days
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -121,7 +121,7 @@ Gets the timetable of the own class for a day
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -137,7 +137,7 @@ Gets the timetable of the own class for a range if days
 - bool validateSession *default: true*
 
 **returns**
-- TimeTable
+- [TimeTable](#timetable--icollectiontimetablepart-icloneable)
 
 **example**
 ```cs 
@@ -152,7 +152,7 @@ Gets an array of homeworks for a range of days
 - DateTime rangeEnd: the date of the timetable
 
 **returns**
-- List<HomeWork>
+- List<[HomeWork](#homework)>
 
 **example**
 ```cs 
@@ -166,7 +166,7 @@ Gets an array of all rooms of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<Room>
+- List<[Room](#room)>
 
 **example**
 ```cs 
@@ -180,7 +180,7 @@ Gets an array of all classes of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<UntisClass>
+- List<[UntisClass](#untisclass)>
 
 **example**
 ```cs 
@@ -194,7 +194,7 @@ Gets an array of the next holidays
 - bool validateSession *default: true*
 
 **returns**
-- List<Holidays>
+- List<[Holidays](#holidays)>
 
 **example**
 ```cs 
@@ -208,7 +208,7 @@ Gets an array of all teachers of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<Teacher>
+- List<[Teacher](#teacher)>
 
 **example**
 ```cs 
@@ -222,7 +222,7 @@ Gets an array of all students of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<Student>
+- List<[Student](#student)>
 
 **example**
 ```cs 
@@ -236,7 +236,7 @@ Gets an array of all subjects of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<Subject>
+- List<[Subject](#subject)>
 
 **example**
 ```cs 
@@ -250,7 +250,7 @@ Gets the timegrid of the timetable of the school
 - bool validateSession *default: true*
 
 **returns**
-- List<TimeGridDay>
+- List<[TimeGridDay](#timegridday)>
 
 **example**
 ```cs 
@@ -264,7 +264,7 @@ Gets the informations for the curent Schholyear
 - bool validateSession *default: true*
 
 **returns**
-- SchoolYear
+- [SchoolYear](#schoolyear)
 
 **example**
 ```cs 
@@ -272,10 +272,10 @@ SchoolYear schoolyear = await client.GetCurrentSchoolyearAsync();
 ```
 
 # Properties
-## SessionInformation
+## SessionInformation {get; private set;}
 
 **Type**
-- SessionInformation
+- [SessionInformation](#sessioninformation)
 
 # static methods
 
@@ -362,9 +362,22 @@ int untisDate = ConvertUntisToTime("1200");
 - string[] Attachments
 - DateTime Date
 - DateTime DueDate
+- [LessonHomeWork](#lessonhomework) Subject
   
 **methods**
 - void Convert(): converts the Untis formats to DateTime *WebUntisClient calls it automaticly*
+
+
+## LessonHomeWork
+**properties**
+- int Id
+- string Subject
+- string LessonType
+
+
+**methods**
+- [Subject](#subject) ParseToSubject( IEnumerable<Subject> subjects )
+- bool TryParseToSubject( IEnumerable<Subject> subjects , out [Subject](#subject) subject ) 
 
 
 ## Room
@@ -448,13 +461,13 @@ int untisDate = ConvertUntisToTime("1200");
 ## TimeGridDay
 **properties**
 - int Day
-- List<TimeGridDayUnit> TimeUnits
+- List<[TimeGridDayUnit](#timegriddayunit)> TimeUnits
 
 **methods**
 - none
 
 **other**
-- working indexer get(TimeGridDay[i])
+- working indexer (TimeGridDay[i]) only get
 
 
 ## TimeGridDayUnit
@@ -468,7 +481,7 @@ int untisDate = ConvertUntisToTime("1200");
 **methods**
 - void Convert(): converts the Untis formats to DateTime *WebUntisClient calls it automaticly*
 
-## TimeTable : *ICollection<TimeTablePart>, ICloneable*
+## TimeTable : *ICollection<[TimeTablePart](#timetablepart--icloneable)>, ICloneable*
 **properties**
 - int Count
 - bool IsReadOnly: *false*
@@ -479,11 +492,11 @@ int untisDate = ConvertUntisToTime("1200");
 - bool Contains( TimeTablePart item )
 - void CopyTo( TimeTablePart[] array , int arrayIndex )
 - bool Remove( TimeTablePart item )
-- IEnumerator<TimeTablePart> GetEnumerator( )
+- IEnumerator<[TimeTablePart](#timetablepart--icloneable)> GetEnumerator( )
 - object Clone( )
 
 **constructors**
-- public TimeTable( List<TimeTablePart> parts )
+- public TimeTable( List<[TimeTablePart](#timetablepart--icloneable)> parts )
 
 **other**
 - working indexer get(TimeTable[i])
@@ -494,9 +507,9 @@ int untisDate = ConvertUntisToTime("1200");
 - int Date
 - int StartTimeUntis
 - int EndTimeUntis
-- List<UntisClass> Classes
-- List<Subject> Subjects
-- List<Room> Rooms
+- List<[UntisClass](#untisclass)> Classes
+- List<[Subject](#subject)> Subjects
+- List<[Room](#room)> Rooms
 - int Lsnumber
 - string ActivityType
 - DateTime StartTime

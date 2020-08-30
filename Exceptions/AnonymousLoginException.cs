@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace WebUntis.Net {
+namespace WebUntis.Net.Exceptions {
     [Serializable]
     internal class AnonymousLoginException : Exception {
         public AnonymousLoginException( ) {

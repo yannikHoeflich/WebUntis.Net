@@ -21,6 +21,7 @@ namespace WebUntis.Net {
             }
             return null;
         }
+
         public bool TryParseToSubject( IEnumerable<Subject> subjects , out Subject subject ) {
             subject = null;
             foreach( Subject s in subjects ) {
