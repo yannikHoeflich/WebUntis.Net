@@ -27,7 +27,10 @@ namespace WebUntis.Net {
 
 
         public SessionInformation SessionInformation { get; private set; }
-        public bool Disconnected = false;
+        public bool Disconnected = true;
+
+
+
 
         /// <summary>
         /// default constructor
@@ -90,6 +93,8 @@ namespace WebUntis.Net {
                 Console.WriteLine( str );
 
             SessionInformation = JsonConvert.DeserializeObject<SessionInformationTemporary>( str ).result;
+            Disconnected = false;
+            ConnectEventHandler( );
         }
 
         /// <summary>
@@ -283,7 +288,9 @@ namespace WebUntis.Net {
         public void StartKeepAlive( ) {
             new Thread( async ( ) => {
                 while( !Disconnected ) {
-                    await _validateSeassion( );
+                    try {
+                        await _validateSeassion( );
+                    } catch( DisconnectedException ) { }
                     Thread.Sleep( TimeSpan.FromMinutes( 1 ) );
                 }
             } ).Start( );
@@ -353,8 +360,20 @@ namespace WebUntis.Net {
         private async Task _validateSeassion( ) {
             if( Disconnected || !long.TryParse( (await _request<object>( "getLatestImportTime" , new Dictionary<string , object>( ) , false )).result.ToString( ) , out long t ) ) {
                 Disconnected = true;
+                DisconnectEventHandler( );
                 throw new DisconnectedException( );
             }
+        }
+
+        public event EventHandler OnDisconnect;
+        protected virtual void DisconnectEventHandler( ) {
+            OnDisconnect?.Invoke( this , new EventArgs( ) );
+        }
+
+
+        public event EventHandler OnConnect;
+        protected virtual void ConnectEventHandler( ) {
+            OnConnect?.Invoke( this , new EventArgs( ) );
         }
         #endregion
 
