@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace WebUntis.Net {
     public class Student {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "key" )]
-        public int Key { get; set; }
+        public ulong Key { get; set; }
 
         [JsonProperty( "name" )]
         public string Name { get; set; }

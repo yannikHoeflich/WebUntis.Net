@@ -6,7 +6,7 @@ namespace WebUntis.Net {
     public class SchoolYear {
 
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "name" )]
         public string Name { get; set; }

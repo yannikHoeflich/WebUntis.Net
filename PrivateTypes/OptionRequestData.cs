@@ -1,6 +1,6 @@
 ﻿namespace WebUntis.Net {
     public class OptionRequestData {
-        public long id { get; set; }
+        public ulong id { get; set; }
         public UntisUser element { get; set; }
         public int startDate { get; set; }
         public int endDate { get; set; }

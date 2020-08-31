@@ -111,7 +111,7 @@ namespace WebUntis.Net {
         /// <param name="type">the person type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the Timetable</returns>
-        public async Task<TimeTable> GetTimetableForDateAsync( DateTime date , int id , int type , bool validateSession = true ) {
+        public async Task<TimeTable> GetTimetableForDateAsync( DateTime date , ulong id , int type , bool validateSession = true ) {
             return await _timetableRequest( id , type , date , date , validateSession );
         }
 
@@ -136,7 +136,7 @@ namespace WebUntis.Net {
         /// <param name="type">the person type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an timetable that contains all subjects in the range of dates</returns>
-        public async Task<TimeTable> GetTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , int id , int type , bool validateSession = true ) {
+        public async Task<TimeTable> GetTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , ulong id , int type , bool validateSession = true ) {
             return await _timetableRequest( id , type , rangeStart , rangeEnd , validateSession );
         }
 
@@ -296,9 +296,9 @@ namespace WebUntis.Net {
                 throw new AnonymousLoginException( );
         }
 
-        private async Task<TimeTable> _timetableRequest( int personId , int personType , DateTime StartDate , DateTime EndDate , bool validateSession = true ) {
+        private async Task<TimeTable> _timetableRequest( ulong personId , int personType , DateTime StartDate , DateTime EndDate , bool validateSession = true ) {
             OptionRequestData options = new OptionRequestData {
-                id = DateTimeOffset.UtcNow.ToUnixTimeSeconds( ) ,
+                id = (ulong) DateTimeOffset.UtcNow.ToUnixTimeSeconds( ) ,
                 startDate = ConvertDateToUntis(StartDate),
                 endDate = ConvertDateToUntis(EndDate),
                 element = new UntisUser( ) {

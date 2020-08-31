@@ -21,10 +21,10 @@ namespace WebUntis.Net {
         public int PersonType { get; set; }
 
         [JsonProperty( "personId" )]
-        public int PersonId { get; set; }
+        public ulong PersonId { get; set; }
 
         [JsonProperty( "klasseId" )]
-        public int ClassId { get; set; }
+        public ulong ClassId { get; set; }
     }
 
 }

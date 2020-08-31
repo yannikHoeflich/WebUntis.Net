@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace WebUntis.Net {
     public class UntisClass {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "name" )]
         public string Name { get; set; }
@@ -25,13 +25,13 @@ namespace WebUntis.Net {
         public int Did { get; set; }
 
         [JsonProperty( "teacher1" )]
-        public int Teacher1 { get; set; }
+        public ulong Teacher1 { get; set; }
 
         [JsonProperty( "teacher2" )]
-        public int Teacher2 { get; set; }
+        public ulong Teacher2 { get; set; }
 
         [JsonProperty( "teacher3" )]
-        public int Teacher3 { get; set; }
+        public ulong Teacher3 { get; set; }
     }
 
 

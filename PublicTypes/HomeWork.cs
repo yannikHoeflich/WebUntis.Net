@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 namespace WebUntis.Net {
     public class HomeWork {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "lessonId" )]
-        public int LessonId { get; set; }
+        public ulong LessonId { get; set; }
 
         [JsonProperty( "date" )]
         public int DateUntis { get; set; }

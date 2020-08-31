@@ -3,7 +3,7 @@
 namespace WebUntis.Net {
     public class Teacher {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "name" )]
         public string Name { get; set; }

@@ -10,18 +10,18 @@ namespace WebUntis.Net {
 
     internal class RecordHomeWorkResponse {
         [JsonProperty( "homeworkId" )]
-        public int HomeworkId { get; set; }
+        public ulong HomeworkId { get; set; }
 
         [JsonProperty( "teacherId" )]
-        public int TeacherId { get; set; }
+        public ulong TeacherId { get; set; }
 
         [JsonProperty( "elementIds" )]
-        public List<int> ElementIds { get; set; }
+        public List<ulong> ElementIds { get; set; }
     }
 
     internal class TeacherHomeWorkResponse {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "name" )]
         public string Name { get; set; }

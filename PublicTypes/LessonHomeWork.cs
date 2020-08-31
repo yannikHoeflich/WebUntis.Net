@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace WebUntis.Net {
     public class LessonHomeWork {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "subject" )]
         public string Subject { get; set; }

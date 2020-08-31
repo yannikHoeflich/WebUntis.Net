@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace WebUntis.Net {
     public class TimeTablePart : ICloneable {
         [JsonProperty( "id" )]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty( "date" )]
         public int Date { get; set; }
