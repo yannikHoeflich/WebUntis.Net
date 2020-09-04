@@ -10,7 +10,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/yannikHoeflich/WebUntis.Net</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.4</Version>
+    <Version>1.0.6</Version>
   </PropertyGroup>
 
   <ItemGroup>

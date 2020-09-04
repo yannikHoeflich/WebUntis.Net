@@ -98,38 +98,19 @@ namespace WebUntis.Net {
         }
 
         /// <summary>
-        /// Get yout timetable for another name
-        /// </summary>
-        /// <param name="date">the date wich you want to have the timetable</param>
-        /// <param name="validateSession">checks if session stays valid</param>
-        /// <returns>the Timetable</returns>
-        public async Task<TimeTable> GetOwnTimetableForDateAsync( DateTime date , bool validateSession = true ) {
-            this._checkAnonymous( );
-            return await _timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , date , date , validateSession );
-        }
-
-        /// <summary>
         /// Get a timetable of another person on another day
         /// </summary>
         /// <param name="date">the date which you want to have the timetable</param>
-        /// <param name="id">ther persons id</param>
-        /// <param name="type">the person type</param>
+        /// <param name="id">ther persons id. default: own id</param>
+        /// <param name="type">the person type. default: own type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>the Timetable</returns>
-        public async Task<TimeTable> GetTimetableForDateAsync( DateTime date , ulong id , int type , bool validateSession = true ) {
+        public async Task<TimeTable> GetTimetableForDateAsync( DateTime date , ulong id = ulong.MaxValue , int type = ulong.MaxValue , bool validateSession = true ) {
+            if( id ==ulong.MaxValue )
+                id = SessionInformation.PersonId;
+            if( type == int.MaxValue )
+                type = SessionInformation.PersonType;
             return await _timetableRequest( id , type , date , date , validateSession );
-        }
-
-        /// <summary>
-        /// Get Own TimeTable for a range of days
-        /// </summary>
-        /// <param name="rangeStart">Date of the first timetable</param>
-        /// <param name="rangeEnd">Date of the last timetable</param>
-        /// <param name="validateSession">checks if session stays valid</param>
-        /// <returns>an timetable that contains all subjects in the range of dates</returns>
-        public async Task<TimeTable> GetOwnTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , bool validateSession = true ) {
-            this._checkAnonymous( );
-            return await _timetableRequest( SessionInformation.PersonId , SessionInformation.PersonType , rangeStart , rangeEnd , validateSession );
         }
 
         /// <summary>
@@ -137,11 +118,15 @@ namespace WebUntis.Net {
         /// </summary>
         /// <param name="rangeStart">Date of the first timetable</param>
         /// <param name="rangeEnd">Date of the last timetable</param>
-        /// <param name="id">ther persons id</param>
-        /// <param name="type">the person type</param>
+        /// <param name="id">ther persons id. default: own id</param>
+        /// <param name="type">the person type. default: own type</param>
         /// <param name="validateSession">checks if session stays valid</param>
         /// <returns>an timetable that contains all subjects in the range of dates</returns>
-        public async Task<TimeTable> GetTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , ulong id , int type , bool validateSession = true ) {
+        public async Task<TimeTable> GetTimetableForRangeAsync( DateTime rangeStart , DateTime rangeEnd , ulong id = ulong.MaxValue , int type = int.MaxValue , bool validateSession = true ) {
+            if( id == ulong.MaxValue )
+                id = SessionInformation.PersonId;
+            if( type == int.MaxValue )
+                type = SessionInformation.PersonType;
             return await _timetableRequest( id , type , rangeStart , rangeEnd , validateSession );
         }
 

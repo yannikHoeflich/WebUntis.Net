@@ -11,7 +11,7 @@ Our stable builds available from NuGet through the Discord.Net metapackage:
 In order to compile WebUntis.Net, you require the following:
 
 ### Using Visual Studio
-- [Visual Studio 2017](https://www.microsoft.com/net/core#windowsvs2017)
+- [Visual Studio 2019](https://visualstudio.microsoft.com/de/)
 - [.NET Core SDK](https://www.microsoft.com/net/download/core)
 
 The .NET Core workload must be selected during Visual Studio installation.
