@@ -1,9 +1,0 @@
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.csprojAssemblyReference.cache
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.AssemblyInfoInputs.cache
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.AssemblyInfo.cs
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.csproj.CoreCompileInputs.cache
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\bin\Release\netstandard2.0\WebUntis.Net.deps.json
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\bin\Release\netstandard2.0\WebUntis.Net.dll
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\bin\Release\netstandard2.0\WebUntis.Net.pdb
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.dll
-C:\Users\ygidy\source\repos\WebUntis.Net\WebUntis.Net\obj\Release\netstandard2.0\WebUntis.Net.pdb

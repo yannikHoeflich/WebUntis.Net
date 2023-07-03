@@ -1,23 +1,46 @@
-An unofficial .NET API Wrapper for the Webuntis Api
+# Untis.NET
+Untis.NET is an unofficial API Wrapper for WebUntis, which is used by many schools. It shows the timetable, missing hours, homeworks, etc.
+With Untis.NET you can login into your profile and create own applications with the data.
 
-Our [documentation](/documentation/documentation.md)
+## Getting Started
 
-## Installation
-### NuGet
-Our stable builds available from NuGet through the Discord.Net metapackage:
- - [WebUntis.Net](https://www.nuget.org/packages/WebUntis.Net)
+### Install
+You can either install the [nuget](https://www.nuget.org/packages/WebUntis.Net/) package via the Nuget manager in Visual Studio 
+**or**
+use the Package Manager
 
-## Compiling
-In order to compile WebUntis.Net, you require the following:
+```
+NuGet\Install-Package WebUntis.Net
+```
 
-### Using Visual Studio
-- [Visual Studio 2019](https://visualstudio.microsoft.com/de/)
-- [.NET Core SDK](https://www.microsoft.com/net/download/core)
+### Create Client
+Next you create a client
+```cs
+var client = UntisClient("school name", "school url");
+```
+To get both values (school name and school url) you have 
+1. go on [WebUntis](https://webuntis.com/).
+2. search for your school
+3. The domain is the school url (for example `nessa.webuntis.com`)
+4. In the query of the url is ?school=`school name`
 
-The .NET Core workload must be selected during Visual Studio installation.
+### Login
+You login with `LoginAsync`:
+```c#
+await client.LoginAsync("your username", "your password");
+```
 
-### Using Command Line
-- [.NET Core SDK](https://www.microsoft.com/net/download/core)
+### Use
+The client is now ready to use. To get your homeworks just do
+```cs
+var UntisHomeWork[] homeworks = await client.GetHomeworksAsync();
+```
 
-## requirements
-.NET standard 2.1 support
+## Documentation
+We have our documentation in the [wiki](/wiki)
+
+## Bugs or Feature requests?
+You can just create an Issue in this repository.
+
+## Contribution
+Normal stuff, either create an Issue or fork this project and later make a pull request to get your code into the project.
