@@ -37,7 +37,7 @@ var UntisHomeWork[] homeworks = await client.GetHomeworksAsync();
 ```
 
 ## Documentation
-We have our documentation in the [wiki](/wiki)
+We have our documentation in the [wiki](https://github.com/yannikHoeflich/WebUntis.Net/wiki)
 
 ## Bugs or Feature requests?
 You can just create an Issue in this repository.
